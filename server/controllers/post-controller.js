@@ -132,3 +132,11 @@ exports.delete_comment = catch_async_err(async (req, res) => {
     message: "Comment deleted successfully!",
   });
 });
+
+exports.get_all_posts = catch_async_err(async(req,res) => {
+  const found_posts = await Post.find({}).populate("author").populate("likes.user")
+  return res.json({
+    message : "Fetched!",
+    posts : found_posts
+  })
+})

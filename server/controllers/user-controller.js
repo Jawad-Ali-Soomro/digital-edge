@@ -50,26 +50,52 @@ exports.update_user = catch_async_err(async (req, res) => {
   });
 });
 
-exports.follow_user = catch_async_err(async (req, res) => {
+exports.toggle_follow_user = catch_async_err(async (req, res) => {
   const user_to_follow = await User.findById(req.body.user_id);
   const user_following = await User.findById(req.body.logged_user_id);
-  user_following.following.push(user_to_follow._id);
-  user_to_follow.followers.push(user_following._id);
-  await user_to_follow.save();
-  await user_following.save();
-  return res.json({
-    message: "Followed Successfully!",
-  });
+  const isFollowing = user_following.following.includes(user_to_follow._id);
+
+  if (isFollowing) {
+    const followingIndex = user_following.following.indexOf(user_to_follow._id);
+    user_following.following.splice(followingIndex, 1);
+    const followerIndex = user_to_follow.followers.indexOf(user_following._id);
+    user_to_follow.followers.splice(followerIndex, 1);
+    await user_to_follow.save();
+    await user_following.save();
+    return res.json({
+      message: "Unfollowed Successfully!",
+      isFollowing: false,
+    });
+  } else {
+    user_following.following.push(user_to_follow._id);
+    user_to_follow.followers.push(user_following._id);
+
+    await user_to_follow.save();
+    await user_following.save();
+
+    return res.json({
+      message: "Followed Successfully!",
+      isFollowing: true,
+    });
+  }
 });
 
-exports.unfollow_user = catch_async_err(async (req, res) => {
-  const user_to_follow = await User.findById(req.body.user_id);
-  const user_following = await User.findById(req.body.logged_user_id);
-  user_following.following.pop(user_to_follow._id);
-  user_to_follow.followers.pop(user_following._id);
-  await user_to_follow.save();
-  await user_following.save();
+exports.get_profile = catch_async_err(async (req,res) => {
+  const get_user = await User.findById(req.body.user_id)
+  if(!get_user){
+    return res.json({
+      message : "User Not Found"
+    })
+  }
   return res.json({
-    message: "Unfollowed Successfully!",
-  });
-});
+    message : "Account Found",
+    user_info : get_user
+  })
+})
+
+exports.get_all_users = catch_async_err(async(req,res) => {
+  const users = await User.find({})
+  return res.json({
+    users
+  })
+})

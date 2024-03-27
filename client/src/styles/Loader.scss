@@ -1,0 +1,22 @@
+.loader{
+    min-height: 100vh;
+    .loader-wrap{
+        width: 300px;
+        height: 5px;
+        margin-top: 10vh;
+        overflow: hidden;
+        align-items: start;
+        justify-content: start;
+        overflow: hidden;
+        .loader-main{
+            width: 100px;
+            height: 5px;
+            background: #111;
+            border-radius: 3px;
+            animation: animate 1s infinite linear;
+        }
+        @keyframes animate {
+            50%{transform: translateX(200px);}
+        }
+    }
+}

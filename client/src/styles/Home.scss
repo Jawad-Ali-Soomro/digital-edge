@@ -1,0 +1,124 @@
+.main-wrap{
+    align-items: start;
+    .left{
+        margin-left: 5%;
+        width: 55%;
+        gap: 50px;
+        padding-bottom: 15vh;
+        padding-top: 20vh;
+        .card{
+            cursor: pointer;
+            padding: 20px 40px;
+            border: 1px solid rgba($color: #000000, $alpha: 0.1);
+            max-width: 500px;
+            border-radius: 10px;
+            gap: 20px;
+            h1{
+                font-weight: 400;
+            }
+            p{
+                text-align: justify;
+                font-weight: 300;
+                position: relative;
+            }
+            #like::after{
+                content: attr(data-after);
+                position: absolute;
+                width: 30px;
+                height: 30px;
+                background: red;
+                border-radius: 15px;
+                top: -10px;
+                right: -10px;
+                color: white;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                font-size: .8rem;
+            }
+            img{
+                width: 500px;
+            }
+            .likes{
+                border-top: 1px solid rgba($color: #000000, $alpha: 0.1);
+                padding-top: 20px;
+                gap: 50px;
+                p{
+                    width: 50px;
+                    border-radius: 25px;
+                    height: 50px;
+                    border: 1px solid rgba($color: #000000, $alpha: 0.1);
+                    font-size: 1.5rem;
+                    font-weight: 900;
+                    color: #111;
+                    gap: 5px;
+                    .icon{
+                        font-size: 1.2rem;
+                    }
+                }
+            }
+            button{
+                width: 150px;
+                height: 50px;
+                border-radius: 10px;
+                border: none;
+                background: royalblue;
+                color: white;
+                font-size: 1rem;
+                font-weight: 600;
+                margin-left: 350px;
+            }
+        }
+    }
+    .right{
+        width: 35%;
+        min-height: 100vh;
+        position:sticky;
+        right: 0;
+        top: 0;
+        margin-right: 2%;
+        margin-left: 3%;
+        h1{
+            font-size: 1.5rem;
+            border-bottom: 1px solid rgba($color: royalblue, $alpha: 1);
+            padding-bottom: 10px;
+            color: royalblue;
+        }
+        .main-wrap{
+            margin-top: 10vh;
+            gap: 20px;
+            .card{
+                width: 300px;
+                height: 50px;
+                border: 1px solid rgba($color: #000000, $alpha: 0.1);
+                justify-content: space-between;
+                padding: 10px 30px;
+                border-radius: 10px;
+                .profile{
+                    gap: 15px;
+                    cursor: pointer;
+                }
+                h2{
+                    font-size: 1.2rem;
+                    font-weight: 300;
+                }
+                button{
+                    width: 100px;
+                    height: 40px;
+                    background: red;
+                    color: white;
+                    border: none;
+                    font-weight: 600;
+                    cursor: pointer;
+                    border-radius: 20px;
+                }
+                img{
+                    width: 40px;
+                    height: 40px;
+                    border-radius: 50%;
+                    background: #eee;
+                }
+            }
+        }
+    }
+}

@@ -33,16 +33,18 @@ const user_schema = new mongoose.Schema({
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
-      default : "0"
     },
   ],
   following: [
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
-      default : "0"
     },
   ],
+  avatar : {
+    type : String,
+    default : "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRAkwUuH1nLTA_3tYTUKCYbJIjYDbm_FltuSA&s"
+  }
 });
 
 user_schema.pre("save", function (next) {
