@@ -6,7 +6,7 @@ const post_schema = new mongoose.Schema({
     required: true,
   },
   author: {
-    type: Schema.Types.ObjectId,
+    type: mongoose.Schema.Types.ObjectId,
     ref: "User",
     required: true,
   },
@@ -20,8 +20,9 @@ const post_schema = new mongoose.Schema({
   },
   likes: [
     {
+      default : {},
       user: {
-        type: Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: "User",
       },
       liked_at: {
@@ -33,11 +34,12 @@ const post_schema = new mongoose.Schema({
   category: {
     type: String,
     required: true,
+    default : "Random"
   },
   comments: [
     {
       user: {
-        type: Schema.Types.ObjectId,
+        type: mongoose.Schema.Types.ObjectId,
         ref: "User",
       },
       content: {
@@ -48,6 +50,7 @@ const post_schema = new mongoose.Schema({
         type: Date,
         default: Date.now,
       },
+      default : {}
     },
   ],
   created_at: {

@@ -61,3 +61,15 @@ exports.follow_user = catch_async_err(async (req, res) => {
     message: "Followed Successfully!",
   });
 });
+
+exports.unfollow_user = catch_async_err(async (req, res) => {
+  const user_to_follow = await User.findById(req.body.user_id);
+  const user_following = await User.findById(req.body.logged_user_id);
+  user_following.following.pop(user_to_follow._id);
+  user_to_follow.followers.pop(user_following._id);
+  await user_to_follow.save();
+  await user_following.save();
+  return res.json({
+    message: "Unfollowed Successfully!",
+  });
+});

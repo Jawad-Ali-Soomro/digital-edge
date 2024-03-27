@@ -3,6 +3,7 @@ const connect_database = require('./config/db-config');
 const app = express()
 const cors = require('cors');
 const user_route = require('./routes/user-route');
+const post_route = require('./routes/post-router');
 require('dotenv').config({path : './config/.env'})
 connect_database()
 app.listen(process.env.PORT || 8080 , () => {
@@ -17,3 +18,4 @@ app.use(cors())
 // applying routes
 
 app.use('/api/user' , user_route)
+app.use('/api/post' , post_route)
