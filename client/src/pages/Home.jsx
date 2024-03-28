@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useReducer, useState } from "react";
 import "../styles/Home.scss";
 import Header from "../components/Header";
 import axios from "axios";
@@ -9,7 +9,6 @@ import Aos from "aos";
 import { useDispatch, useSelector } from "react-redux";
 import { add_user } from "../redux-action/user";
 import toast from "react-hot-toast";
-
 Aos.init();
 
 const Home = () => {
@@ -19,20 +18,20 @@ const Home = () => {
   dispatch(add_user());
   const [post_data, set_post_data] = useState();
   const [users, set_users] = useState();
-  React.useEffect(async () => {
-    await axios.get(`${postUrl}/get/posts`).then((res) => {
+  React.useEffect(() => {
+    const get_posts = async () => {
+      const res = await axios.get(`${postUrl}/get/posts`);
       set_post_data(res.data.posts);
-    });
-
-    await axios.get(`${userUrl}/get/users`).then((res) => {
+    };
+    const get_users = async () => {
+      const res = await axios.get(`${userUrl}/get/users`);
       set_users(res.data.users);
-    });
+    };
+    setInterval(() => {
+      get_posts();
+      get_users();
+    }, [1000]);
   }, []);
-  const getRandomUsers = () => {
-    const shuffledUsers = users?.sort(() => 0.5 - Math.random());
-    return shuffledUsers?.slice(0, 5);
-  };
-  const randomUsers = getRandomUsers();
   const follow_user = async ({ user_to_follow_id }) => {
     if (id !== undefined) {
       await axios
@@ -41,8 +40,7 @@ const Home = () => {
           logged_user_id: id,
         })
         .then((res) => {
-          toast.success(res.data.message);
-          
+          toast.success("User " + res.data.message);
         });
     }
   };
@@ -87,35 +85,25 @@ const Home = () => {
           })}
         </div>
         <div className="right flex col">
-          <h1>Follow Friends</h1>
+          <h1>Top Authors</h1>
           <div className="main-wrap flex col">
-            {randomUsers?.map((user) => {
+            {users?.filter(user => !user.following.includes(id)).slice(1,6).map((user) => {
               return user?._id == id ? (
                 ""
               ) : (
                 <div className="card flex" key={user._id}>
-                  <div className="profile flex">
-                    <img src={user?.avatar} />
-                    <h2>{user?.username}</h2>
-                  </div>
-                  {user?.followers?.includes(id) ? (
-                    <button
-                      style={{ background: "royalblue" }}
-                      onClick={() =>
-                        follow_user({ user_to_follow_id: user?._id })
-                      }
-                    >
-                      Unfollow
-                    </button>
-                  ) : (
-                    <button
-                      onClick={() =>
-                        follow_user({ user_to_follow_id: user?._id })
-                      }
-                    >
-                      Follow
-                    </button>
-                  )}
+                 
+                    <div className="profile flex">
+                      <img src={user?.avatar} />
+                      <h2>{user?.username}</h2>
+                      <button
+                        onClick={() =>
+                          follow_user({ user_to_follow_id: user?._id })
+                        }
+                      >
+                        {user?.followers?.includes(id) ? "Followed" : "Follow"}
+                      </button>
+                    </div>
                 </div>
               );
             })}
