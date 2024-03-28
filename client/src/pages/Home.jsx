@@ -9,12 +9,13 @@ import Aos from "aos";
 import { useDispatch, useSelector } from "react-redux";
 import { add_user } from "../redux-action/user";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 Aos.init();
 
 const Home = () => {
+  const navigate = useNavigate()
   const dispatch = useDispatch();
   const id = useSelector((state) => state.user.user.user_id);
-
   dispatch(add_user());
   const [post_data, set_post_data] = useState();
   const [users, set_users] = useState();
@@ -56,6 +57,7 @@ const Home = () => {
                 key={post?._id}
                 data-aos="fade-right"
                 data-aos-offset="300"
+                onClick={() => navigate(`/post/${post._id}`)}
               >
                 <img src={post?.image} alt={post?.title} />
                 <h1>{post?.title}</h1>
@@ -87,26 +89,39 @@ const Home = () => {
         <div className="right flex col">
           <h1>Top Authors</h1>
           <div className="main-wrap flex col">
-            {users?.filter(user => !user.following.includes(id)).slice(1,6).map((user) => {
-              return user?._id == id ? (
-                ""
-              ) : (
-                <div className="card flex" key={user._id}>
-                 
+            {users
+              ?.filter((user) => !user.following.includes(id))
+              .slice(1, 5)
+              .map((user) => {
+                return user?._id == id ? (
+                  ""
+                ) : (
+                  <div className="card flex" key={user._id}>
                     <div className="profile flex">
                       <img src={user?.avatar} />
                       <h2>{user?.username}</h2>
-                      <button
-                        onClick={() =>
-                          follow_user({ user_to_follow_id: user?._id })
-                        }
-                      >
-                        {user?.followers?.includes(id) ? "Followed" : "Follow"}
-                      </button>
+                      {user?.followers?.includes(id) ? (
+                        <button
+                          onClick={() =>
+                            follow_user({ user_to_follow_id: user?._id })
+                          }
+                          style={{background:'gray'}}
+                        >
+                          Unfollow
+                        </button>
+                      ) : (
+                        <button
+                          onClick={() =>
+                            follow_user({ user_to_follow_id: user?._id })
+                          }
+                        >
+                          Follow
+                        </button>
+                      )}
                     </div>
-                </div>
-              );
-            })}
+                  </div>
+                );
+              })}
           </div>
         </div>
       </div>

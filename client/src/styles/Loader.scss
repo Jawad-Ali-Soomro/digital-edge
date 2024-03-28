@@ -1,5 +1,9 @@
 .loader{
+    width: 100%;
     min-height: 100vh;
+    img{
+        width: 400px;
+    }
     .loader-wrap{
         width: 300px;
         height: 5px;

@@ -109,7 +109,9 @@ exports.delete_comment = catch_async_err(async (req, res) => {
       message: "User or Post not found",
     });
   }
-  const commentIndex = find_post.comments.findIndex(comment => String(comment._id) === req.body.comment_id);
+  const commentIndex = find_post.comments.findIndex(
+    (comment) => String(comment._id) === req.body.comment_id
+  );
 
   if (commentIndex === -1) {
     return res.status(404).json({
@@ -133,10 +135,26 @@ exports.delete_comment = catch_async_err(async (req, res) => {
   });
 });
 
-exports.get_all_posts = catch_async_err(async(req,res) => {
-  const found_posts = await Post.find({}).populate("author").populate("likes.user")
+exports.get_all_posts = catch_async_err(async (req, res) => {
+  const found_posts = await Post.find({})
+    .populate("author")
+    .populate("likes.user");
   return res.json({
-    message : "Fetched!",
-    posts : found_posts
-  })
-})
+    message: "Fetched!",
+    posts: found_posts,
+  });
+});
+
+exports.get_single_post = catch_async_err(async (req, res) => {
+  const found_post = await Post.findById(req.params.post_id).populate("author")
+  if (!found_post) {
+    return res.json({
+      message: "Post Not Found!",
+    });
+  } else {
+    return res.json({
+      message: "Post Found",
+      post: found_post,
+    });
+  }
+});

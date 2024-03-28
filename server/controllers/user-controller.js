@@ -80,22 +80,24 @@ exports.toggle_follow_user = catch_async_err(async (req, res) => {
   }
 });
 
-exports.get_profile = catch_async_err(async (req,res) => {
+exports.get_profile = catch_async_err(async (req, res) => {
   const get_user = await User.findById(req.body.user_id)
-  if(!get_user){
+    .populate("created_posts")
+    .populate("following");
+  if (!get_user) {
     return res.json({
-      message : "User Not Found"
-    })
+      message: "User Not Found",
+    });
   }
   return res.json({
-    message : "Account Found",
-    user_info : get_user
-  })
-})
+    message: "Account Found",
+    user_info: get_user,
+  });
+});
 
-exports.get_all_users = catch_async_err(async(req,res) => {
-  const users = await User.find({})
+exports.get_all_users = catch_async_err(async (req, res) => {
+  const users = await User.find({});
   return res.json({
-    users
-  })
-})
+    users,
+  });
+});
