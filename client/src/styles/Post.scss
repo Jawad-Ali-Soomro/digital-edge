@@ -1,0 +1,89 @@
+.main-wrap{
+    max-height: 100vh;
+    justify-content: space-between;
+    .left-wrap{
+        height: 100vh;
+        gap: 20px;
+        max-width: 600px;
+        text-align: justify;
+        margin-left: 100px;
+        align-items: start;
+        img{
+            max-width: 600px;
+        }
+        h1{
+            font-size: 1.7rem;
+            font-weight: 400;
+        }
+        p{
+            font-weight: 300;
+        }
+    }
+    .right-wrap{
+        height: 100vh;
+        margin-right: 100px;
+        align-items: end;
+        gap: 20px;
+        .profile-main {
+            gap: 10px;
+            img{
+                width: 50px;
+                border-radius: 50%;
+                height: 50px;
+            }
+            h2{
+                font-size: 1.5rem;
+                font-weight: 300;
+            }
+        }
+        .likes{
+            gap: 5px;
+            .icon{
+                font-size: 1.5rem;
+                color: red;
+            }
+            p{
+                font-size: 1.5rem;
+                font-weight: 900;
+                color: red;
+            }
+        }
+        .bottom-sect {
+            border-top: 1px solid rgba($color: #000000, $alpha: 0.1);
+            border-bottom: 1px solid rgba($color: #000000, $alpha: 0.1);
+            padding-top: 15px;
+            padding-bottom: 15px;
+            padding-left: 20px;
+            padding-right: 20px;
+            gap: 50px;
+            .icon{
+                font-size: 1.5rem;
+                cursor: pointer;
+            }
+        }
+        .comment{
+            align-items: end;
+            textarea{
+                max-width: 300px;
+                max-height: 180px;
+                border: 1px solid rgba($color: #000000, $alpha: 0.2);
+                border-radius: 10px;
+                overflow: hidden;
+                outline: none;
+                padding: 10px;
+            }
+            button{
+                width: 150px;
+                height: 40px;
+                margin-top: 20px;
+                border: 1px solid rgba($color: #111, $alpha: 0.1);
+                background: transparent;
+                color: #111;
+                font-weight: 600;
+                font-size: .9rem;
+                border-radius: 10px;
+                cursor: pointer;
+            }
+        }
+    }
+}

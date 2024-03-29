@@ -86,7 +86,7 @@ const Home = () => {
             );
           })}
         </div>
-        <div className="right flex col">
+        <div className="right flex col" style={{position : 'fixed'}}>
           <h1>Top Authors</h1>
           <div className="main-wrap flex col">
             {users
