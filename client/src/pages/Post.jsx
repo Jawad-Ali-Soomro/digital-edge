@@ -47,12 +47,7 @@ const Post = () => {
           </div>
           <div className="bottom-sect flex">
             <BiHeart className="icon" onClick={() => like_post()} />
-            <BiComment className="icon" />
             <BiShare className="icon" />
-          </div>
-          <div className="comment flex col">
-            <textarea name="" id="" cols="30" rows="10"></textarea>
-            <button>Comment</button>
           </div>
         </div>
       }

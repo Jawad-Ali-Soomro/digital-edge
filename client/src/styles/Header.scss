@@ -28,12 +28,7 @@
                 cursor: pointer;
                 position: relative;
             }
-            li:last-child{
-                border: none;
-                font-size: 2rem;
-                cursor: pointer;
-            }
-            li:not(:last-child)::after{
+            li::after{
                 content: attr(data-after);
                 position: absolute;
                 font-size: .8rem;

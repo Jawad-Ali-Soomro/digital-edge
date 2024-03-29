@@ -15,7 +15,6 @@ const Header = () => {
             <li className="flex" data-after="Search"><BiSearch /></li>
             <li className="flex" data-after="Statistics"><BiStats /></li>
             <li className="flex" data-after="Profile"><BiUser /></li>
-            <li className="flex"><BiMenu /></li>
         </ul>
       </div>
     </div>

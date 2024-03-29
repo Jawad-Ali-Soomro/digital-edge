@@ -2,9 +2,7 @@ import React, { useReducer, useState } from "react";
 import "../styles/Home.scss";
 import Header from "../components/Header";
 import axios from "axios";
-import { useEffect } from "react";
 import { postUrl, userUrl } from "../constant";
-import { BiComment, BiHeart, BiShare } from "react-icons/bi";
 import Aos from "aos";
 import { useDispatch, useSelector } from "react-redux";
 import { add_user } from "../redux-action/user";
@@ -19,15 +17,15 @@ const Home = () => {
   dispatch(add_user());
   const [post_data, set_post_data] = useState();
   const [users, set_users] = useState();
+  const get_posts = async () => {
+    const res = await axios.get(`${postUrl}/get/posts`);
+    set_post_data(res.data.posts);
+  };
+  const get_users = async () => {
+    const res = await axios.get(`${userUrl}/get/users`);
+    set_users(res.data.users);
+  };
   React.useEffect(() => {
-    const get_posts = async () => {
-      const res = await axios.get(`${postUrl}/get/posts`);
-      set_post_data(res.data.posts);
-    };
-    const get_users = async () => {
-      const res = await axios.get(`${userUrl}/get/users`);
-      set_users(res.data.users);
-    };
     setInterval(() => {
       get_posts();
       get_users();
@@ -62,26 +60,7 @@ const Home = () => {
                 <img src={post?.image} alt={post?.title} />
                 <h1>{post?.title}</h1>
                 <p>{post?.description?.substring(0, 130)}...</p>
-                <div className="likes flex">
-                  <p
-                    className="flex"
-                    id="like"
-                    data-after={post?.likes?.length}
-                  >
-                    <BiHeart className="icon" />
-                  </p>
-                  <p
-                    className="flex"
-                    id="like"
-                    data-after={post?.comments?.length}
-                  >
-                    <BiComment className="icon" />
-                  </p>
-                  <p className="flex">
-                    {" "}
-                    <BiShare />
-                  </p>
-                </div>
+                  <button>Read More</button>
               </div>
             );
           })}
