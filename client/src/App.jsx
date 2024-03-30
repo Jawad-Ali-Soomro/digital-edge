@@ -13,7 +13,28 @@ function App() {
   }, 3000);
   return (
     <>
-      <Toaster />
+      <Toaster
+        toastOptions={{
+          style: {
+            padding: '10px 20px',
+            color: '#713200',
+            fontWeight:'600',
+            fontSize:'.9rem',
+            textTransform:'uppercase'
+          },
+          success: {
+            style: {
+              color: 'green'
+            },
+          },
+          error: {
+            style: {
+              color: 'red',
+            },
+          },
+        }}
+        containerStyle={{ top: 20, left: 20, bottom: 200, right: 20 }}
+      />
       <BrowserRouter>
         <Routes>
           <Route

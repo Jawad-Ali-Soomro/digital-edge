@@ -11,9 +11,10 @@ import { useNavigate } from "react-router-dom";
 Aos.init();
 
 const Home = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const dispatch = useDispatch();
-  const id = useSelector((state) => state.user.user.user_id);
+  const id = window.localStorage.getItem("user_token");
+  console.log(id);
   dispatch(add_user());
   const [post_data, set_post_data] = useState();
   const [users, set_users] = useState();
@@ -32,7 +33,9 @@ const Home = () => {
     }, [1000]);
   }, []);
   const follow_user = async ({ user_to_follow_id }) => {
-    if (id !== undefined) {
+    if (id === null) {
+      return toast.error("Please Login First!");
+    } else {
       await axios
         .post(`${userUrl}/follow/user`, {
           user_id: user_to_follow_id,
@@ -60,12 +63,12 @@ const Home = () => {
                 <img src={post?.image} alt={post?.title} />
                 <h1>{post?.title}</h1>
                 <p>{post?.description?.substring(0, 130)}...</p>
-                  <button>Read More</button>
+                <button>Read More</button>
               </div>
             );
           })}
         </div>
-        <div className="right flex col" style={{position : 'fixed'}}>
+        <div className="right flex col" style={{ position: "fixed" }}>
           <h1>Top Authors</h1>
           <div className="main-wrap flex col">
             {users
@@ -84,7 +87,7 @@ const Home = () => {
                           onClick={() =>
                             follow_user({ user_to_follow_id: user?._id })
                           }
-                          style={{background:'gray'}}
+                          style={{ background: "gray" }}
                         >
                           Unfollow
                         </button>

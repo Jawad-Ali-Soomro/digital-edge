@@ -1,18 +1,20 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import "../styles/Post.scss";
 import { postUrl } from "../constant";
-import { BiComment, BiHeart, BiShare } from "react-icons/bi";
+import { BiHeart, BiShare } from "react-icons/bi";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { add_user } from "../redux-action/user";
 import toast from "react-hot-toast";
+
 const Post = () => {
+  const navigate = useNavigate()
   const post_id = useParams();
   const [post_data, set_post_data] = useState();
   const dispatch = useDispatch();
-  dispatch(add_user())
+  dispatch(add_user());
   const id = useSelector((state) => state.user.user.user_id);
   useEffect(() => {
     const find_post = async () => {
@@ -25,7 +27,7 @@ const Post = () => {
   const like_post = async () => {
     await axios
       .post(`${postUrl}/like/post`, { user_id: id, post_id: post_id.post_id })
-      .then((res) => toast.success(res.data.message))
+      .then((res) => toast.success(res.data.message));
   };
   return (
     <div className="main-wrap flex">
@@ -48,7 +50,14 @@ const Post = () => {
           <div className="bottom-sect flex">
             <BiHeart className="icon" onClick={() => like_post()} />
             <BiShare className="icon" />
+            <div className="icon flex">
+              <div className="more"></div>
+              <div className="more"></div>
+              <div className="more"></div>
+            </div>
           </div>
+          <p className="category">{post_data?.category}</p>
+          <button onClick={() => navigate('/')}>Go Back</button>
         </div>
       }
     </div>

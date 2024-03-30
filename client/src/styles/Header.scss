@@ -48,7 +48,7 @@
                 font-weight: 600;
                 letter-spacing: 1px;
             }
-            li:not(:last-child):hover::after{
+            li:hover::after{
                 max-width: 100px;
                 padding: 10px;
             }

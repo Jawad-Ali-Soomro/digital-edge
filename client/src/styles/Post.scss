@@ -49,6 +49,7 @@
             }
         }
         .bottom-sect {
+            margin-top: 20px;
             border-top: 1px solid rgba($color: #000000, $alpha: 0.1);
             border-bottom: 1px solid rgba($color: #000000, $alpha: 0.1);
             padding-top: 15px;
@@ -59,31 +60,48 @@
             .icon{
                 font-size: 1.5rem;
                 cursor: pointer;
+                gap: 3px;
+                .more{
+                    width: 5px;
+                    height: 5px;
+                    border: 2px solid;
+                    border-radius: 10px;
+                }
+            }
+            .icon:hover{
+                color: red;
+                .more{
+                    background: red;
+                }
             }
         }
-        .comment{
-            align-items: end;
-            textarea{
-                max-width: 300px;
-                max-height: 180px;
-                border: 1px solid rgba($color: #000000, $alpha: 0.2);
-                border-radius: 10px;
-                overflow: hidden;
-                outline: none;
-                padding: 10px;
-            }
-            button{
-                width: 150px;
-                height: 40px;
-                margin-top: 20px;
-                border: 1px solid rgba($color: #111, $alpha: 0.1);
-                background: transparent;
-                color: #111;
-                font-weight: 600;
-                font-size: .9rem;
-                border-radius: 10px;
-                cursor: pointer;
-            }
+        .category {
+            padding: 10px 30px;
+            border: 1px solid rgba($color: #000000, $alpha: 0.1);
+            border-radius: 10px;
+            font-size: .8rem;
+            font-weight: 400;
+            cursor: pointer;
+
+            transition: .3s;
+            margin-top: 20px;
+        }
+        .category:hover{
+            background: #111;
+            color: white;
+        }
+        button{
+            width: 150px;
+            height: 45px;
+            border: none;
+            background: #111;
+            color: white;
+            font-weight: 600;
+            font-size: 1rem;
+            border-radius: 10px;
+            letter-spacing: 1px;
+            cursor: pointer;
+            margin-top: 20px;
         }
     }
 }
